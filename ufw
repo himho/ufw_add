@@ -1,0 +1,43 @@
+
+#!/bin/bash
+date
+echo 输入L查询端口状态；输入A添加端口；输入S删除端口；输入Q退出.
+read -t 20 name
+while [[ $name != "q" ]]
+do
+        {
+        if [[ $name = "l" ]]
+        then
+                read -p 请输入要查询端口号，退出请输入q: port
+
+                while [[ "$port" != "q" ]]
+                do
+                ufw status | grep $port
+                read -p 请输入要查询端口号，退出请输入q： port
+                done
+
+        elif [[ $name = "a" ]]
+        then
+                read -p 请输入要添加端口号，退出请输入q: port
+                while [[ $port != "q" ]]
+                do
+
+                ufw allow $port
+                ufw status|grep $port
+                read -p 请输入要添加端口号，退出请输入q: port
+                done
+        elif [[ $name = "s" ]]
+        then
+                read -p 请输入要删除端口号，退出请输入q: port
+
+                 while [[ $port != "q" ]]
+                do
+
+                ufw delete allow $port
+                ufw status|grep $port
+                read -p 请输入要删除端口号，退出请输入q: port
+                done
+        else
+                echo 输入错误，请重新输入：
+
+        fi
